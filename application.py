@@ -208,7 +208,7 @@ def rating(book_id):
 			isb = bookdetails['isbn']
 
 			#get data from goodreads API.
-			res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "AGXAYyU8Q9TwQktO94WBRA", "isbns": isb})
+			res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": os.getenv("GOODREADS_KEY"), "isbns": isb})
 			#print(res.json())
 			goodreads = res.json()
 			#print(goodreads['books'][0]['work_ratings_count'])

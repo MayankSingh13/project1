@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+     Books
+{% endblock %}
+
+{% block body %}
+    <div class="float-right" style="margin-top:10px">
+      <b> Welcome, {{ session['username'] }} </b>
+      <a href="{{ url_for('login') }}" style="margin-left:20px"> Search </a>
+      <a href="{{ url_for('logout') }}" style="margin-left:20px"> Logout </a>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col=7">
+      <h1> Congrats! You have successfully logged in.</h1>
+      </div>
+    </div>
+
+<form action="{{ url_for('search') }}" method="post">
+    <div class="searchbar">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search books by isbn, title or author" name="value">
+        <div class="input-group-append">
+          <button class="btn btn-secondary" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div> 
+ </form>
+{% endblock %}

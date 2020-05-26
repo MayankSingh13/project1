@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+     Books
+{% endblock %}
+
+{% block body %}
+    <div class="float-right" style="margin-top:10px">
+      <b> Welcome, {{ session['username'] }} </b>
+      <a href="{{ url_for('login') }}" style="margin-left:20px"> Search </a>
+      <a href="{{ url_for('logout') }}" style="margin-left:20px"> Logout </a>
+    </div>
+    <div class="row justify-content-center">
+          <div class="col">
+            <table class="table" style="margin-top:30px;">
+              <caption>Search Results ...</caption>
+              <thead>
+                <tr>
+                  <th scope="col">ISBN</th>
+                  <th>TITLE</th>
+                  <th>AUTHOR</th>
+                  <th>YEAR</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for book in books %}
+                <tr>
+                  <td>{{ book['isbn'] }}</td>
+                  <td>{{ book['title'] }}</td>
+                  <td>{{ book['author'] }}</td>
+                  <td>{{ book['year'] }}</td>
+                  <td><a href="/book/{{ book['book_id'] }}">Go to book </a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+    </div>
+
+ 
+{% endblock %}

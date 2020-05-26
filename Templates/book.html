@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+
+{% block title %}
+     Books
+{% endblock %}
+
+{% block body %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+    <div class="float-right" style="margin-top:10px">
+      <b> Welcome, {{ session['username'] }} </b>
+      <a href="{{ url_for('login') }}" style="margin-left:20px"> Search </a>
+      <a href="{{ url_for('logout') }}" style="margin-left:20px"> Logout </a>
+    </div>
+    <div class="row justify-content-left">
+        <h2 style="margin-top:45px"> {{ book['title'] }} </h2>
+    </div>
+    <div class="row">
+      <div class="colum1" style="width:50%;">
+        <div class="row justify-content-around">
+          <div class="col-8">
+            <b> Author : {{ book['author'] }} </b>
+          </div>
+        </div>
+        <div class="row justify-content-around">
+          <div class="col-8">
+            <b> ISBN No. : {{ book['isbn'] }} </b>
+          </div>
+        </div>
+        <div class="row justify-content-around">
+          <div class="col-8">
+            <b> Publication Year : {{ book['year'] }} </b>
+          </div>
+        </div>
+        <div class="row justify-content-around">
+          <div class="col-8">
+            <b> Ratings Count (Goodreads<sup>*</sup> ) : {{ goodreads['work_ratings_count'] }} </b>
+          </div>
+        </div>
+        <div class="row justify-content-around">
+          <div class="col-8">
+            <b> Average Rating (Goodreads<sup>*</sup> ) : {{ goodreads['average_rating'] }} </b>
+          </div>
+        </div>
+        <div class="row justify-content-left">
+          <div class="col">
+            <p style='margin-top:20px'> * Data fetched from goodreads <a href='https://www.goodreads.com/api/keys' target="_blank">API</a> </p>
+          </div>
+        </div>
+      </div>
+      <div class="columm2" style="width:50%;">
+        <form action="{{ url_for('rating', book_id=book['book_id']) }}" method="post">
+          <div class="col-12">
+            <b style="margin-right:15px;"> Your Rating on the book </b>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
+              <label class="form-check-label" for="inlineRadio1">1</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
+              <label class="form-check-label" for="inlineRadio2">2</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
+              <label class="form-check-label" for="inlineRadio3">3</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4">
+              <label class="form-check-label" for="inlineRadio4">4</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="5">
+              <label class="form-check-label" for="inlineRadio5">5</label>
+            </div>
+          </div>
+          <div class="col-12">
+            <b> Submit your review about the book below. </b>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="postreview" placeholder="Write your review here..."></textarea>
+          </div>
+          <div class="form-group">
+             <div class="row justify-content-center">
+                 <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-primary" style="margin-left:45px">Reset</button>
+             </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row justify-content-left">
+      <p> #Reviews posted about this book by readers.</p>
+    </div>
+      <br>
+      <div class="row justify-content-left">
+        {% if results %}
+          <p> No one has posted any review about this book. Be, the first one to do so. </p>
+        {% else %}
+          <ul>
+            {% for review in reviews %}
+            <li>
+              Rated: {{ review['rating'] }} <br>
+              {{ review['review'] }} <br>
+              Posted on: {{ review['posting_date'] }} by {{ review['username']}} <br>
+           </li>
+           <br>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+{% endblock %}

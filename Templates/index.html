@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+     Books 
+{% endblock %}
+
+{% block body %}
+     <h1 style="text-align:center"> Welcome to the books rating website.</h1>
+	<br>
+	<form action="{{ url_for('index') }}" method="post">
+
+          <div class="form-group">
+             <div class="row justify-content-center">
+                 <div class="col-4">
+		     <input class="form-control" name="username" type="text" placeholder="Enter your username">
+                 </div>
+             </div> 
+	  </div>
+
+	  <div class="form-group">
+             <div class="row justify-content-center">
+                 <div class="col-4">
+                     <input class="form-control" name="password" type="password" placeholder="Enter your password">
+                 </div>
+             </div> 
+	  </div>
+
+         <div class="form-group">
+             <div class="row justify-content-center">
+                 <button type="submit" class="btn btn-primary">Login</button>
+                 <button type="reset" class="btn btn-primary" style="margin-left:45px">Reset</button>
+             </div>
+         </div>
+
+	</form>
+     <p style="text-align:center"> New User? <a href="{{ url_for('register') }}"> Register </a> </p>
+{% endblock %}
